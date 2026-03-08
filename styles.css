@@ -1,14 +1,15 @@
 :root {
   /* Basis-Token */
-  --primary-h: 220; 
+  --primary-h: 26; 
   --primary-s: 70%;
   --primary-l: 50%;
 
   /* Automatisch berechnete Tokens */
   --color-primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+  --color-primary-inactive: hsl(var(--primary-h), calc(var(--primary-s) - 30%), var(--primary-l));
   
   /* Sekundärfarbe = Primär-Hue + 180 Grad */
-  --color-secondary: hsl(calc(var(--primary-h) + 180), var(--primary-s), var(--primary-l));
+  --color-secondary: hsl(calc(var(--primary-h) + 180), calc(var(--primary-s) - 10%), var(--primary-l));
 
   /* UI Farben (Light Mode Standard) */
   --bg-body: #ffffff;
@@ -28,7 +29,7 @@ GRUNDELEMENTE
 body {
   background-color: var(--bg-body);
   color: var(--text-main);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Figtree Variable", "Figtree", Verdana, sans-serif;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 .site-width {
@@ -36,7 +37,6 @@ body {
   margin: 0 auto;
   padding: 20px;
 }
-
 a {
   color: var(--color-primary);
   text-decoration: none;
@@ -55,6 +55,32 @@ button {
 
 .btn-primary { background: var(--color-primary); color: white; }
 .btn-secondary { background: var(--color-secondary); color: white; }
+
+/*
+Navigation
+*/
+nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.menu a.active {
+  color: var(--color-secondary);
+}
+
+.coming-soon{
+  color: var(--color-primary-inactive);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
 
 /* 
 Hue Slider 
@@ -94,3 +120,23 @@ Hue Slider
   border-radius: 50%;
   cursor: pointer;
 }
+
+.controls {
+  display: grid;
+  gap: 20px;
+  max-width: 150px;
+}
+.card {
+  background: hsl(var(--primary-h), 50%, 90%);
+  border: 1px solid var(--color-primary-inactive);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 5px hsla(var(--primary-h), 40%, 40%, 20%);
+}
+
+/* 
+DEV TOOLS Delete after development 
+
+div, p, h1, h2, h3, h4, h5, h6 {
+  border: 1px solid magenta;
+}*/

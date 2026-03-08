@@ -6,36 +6,43 @@
     <meta name="description" content="SHARKS_96's indie-website">
     <title>Mypersonal Matrix</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fonts.css">
     <script src="java.js" defer></script>
 </head>
 <body>
-    <div class="site-width"@>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Blog</a>
-        <a href="#">Projects</a>
-        <div class="controls">
-        <button id="theme-toggle">Dark/Light Mode</button>
-        <label>Farbe anpassen: 
-            <input type="range" data-model="hsl" name="hue" id="hue-slider" min="0" max="360" value="220">
-        </label>
+    <div class="site-width">
+        <nav>
+            <div class="menu">
+                <a href="janekbergerfurth.de">Home</a>
+                <a href="" title="Coming soon" class="coming-soon">Blog</a>
+                <a href="" title="Coming soon" class="coming-soon">Projects</a>
+            </div>
+            <div class="controls">
+            <button id="theme-toggle">&#x1F313;</button>
+            <div class="hue-settings">
+                <label>Your color 
+                    <input type="range" data-model="hsl" name="hue" id="hue-slider" min="0" max="360" value="220">
+                </label>
+            </div>
+            </div>
+        </nav>
+        <header>
+            <h1>Welcome to My Personal Site</h1>
+        </header>
+        <div class="about-me">
+            <h2>About Me</h2>
+            <p>Hi i am a german media designer with an interest for tech.</p>
         </div>
-    </nav>
-    <header>
-        <h1>Welcome to My Personal Site</h1>
-    </header>
-        <h2>About Me</h2>
-        <p>Hi i am a german media designer with an interest for tech.</p>
-    
+        
         <div class="card">
             <h2>Design Tokens Test</h2>
-            <p>Diese Karte nutzt berechnete Farben.</p>
+            <p>This card uses calculated colors</p>
             <button class="btn-primary">Primär</button>
             <button class="btn-secondary">Sekundär</button>
         </div>
     </div>
     <footer class="site-width">
-        <p>&copy; 2026 My Personal Site. All rights reserved.</p>
+        <p>&copy; 2026 janekbergerfurth. All rights reserved.</p>
     </footer>
 </body>
 </html>
