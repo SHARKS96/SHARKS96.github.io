@@ -127,7 +127,7 @@ Hue Slider
   max-width: 150px;
 }
 .card {
-  background: hsl(var(--primary-h), 50%, 90%);
+  background: hsla(var(--primary-h), 50%, 90%, 20%);
   border: 1px solid var(--color-primary-inactive);
   border-radius: 15px;
   padding: 20px;
