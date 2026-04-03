@@ -1,0 +1,38 @@
+/* Standard (Desktop) */
+.plant-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.plant-nav {
+    flex: 1;
+    padding: 20px;
+    border-right: 1px solid #ededed;
+    border-radius: var(--radius-m) 0 0 var(--radius-m);
+    background-color: #eaeaea;
+}
+
+.plant-list {
+    list-style: none;
+    padding: 0;
+    line-height: 1.5;
+}
+
+.plant-details {
+    flex: 2;
+    padding: 20px;
+}
+
+/* Mobile-Ansicht */
+@media (max-width: 768px) {
+    .plant-layout {
+        flex-direction: column;
+    }
+
+    .plant-nav {
+        border-right: none;
+        border-bottom: 1px solid #eaeaea;
+        border-radius: var(--radius-m) var(--radius-m) 0 0;
+    }
+}

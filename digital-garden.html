@@ -7,7 +7,9 @@
     <title>Mypersonal Matrix</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="fonts.css">
+        <link rel="stylesheet" href="plants.css">
     <script src="java.js" defer></script>
+    <script src="plants.js" defer></script>
 </head>
 <body>
     <div class="site-width">
@@ -27,28 +29,22 @@
             </div>
         </nav>
         <header>
-            <h1>Welcome to My Personal Site</h1>
+            <h1>Digital Garden</h1>
+            <h2>Our digital Plants</h2>
+            <p>Select a flower from the List</p>
         </header>
-        <div class="about-me">
-            <h2>About Me</h2>
-            <p>Hi i am a german media designer with an interest for tech.</p>
-            </br>
-        </div>
-        
-        <div class="grid">
-            <div class="card-primary">
-                <h2>Design Tokens Test</h2>
-                <p>This card uses calculated colors</p>
-                <button class="btn-primary">Primär</button>
-                <button class="btn-secondary">Sekundär</button>
-            </div>
-            <div class="card">
-                <h2>Digital Garden</h2>
-                <p>Visit our digital garden!</p>
-                <a href="digital-garden.html" class="btn-primary">Go to the garden</a>
-            </div>
-        </div>
 
+        <div class="card plant-layout">
+            <nav class="plant-nav">
+                <ul id="plant-list" class="plant-list">
+                    <!-- Hier kommen deine Pflanzen-Items rein -->
+                </ul>
+            </nav>
+
+            <main id="plant-details" class="plant-details">
+                <!-- Hier kommen die Pflanzendetails rein -->
+            </main>
+        </div>
     </div>
     <footer class="site-width">
         <p>&copy; 2026 janekbergerfurth. All rights reserved.</p>
