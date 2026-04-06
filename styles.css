@@ -202,6 +202,18 @@ Elemente
     border-radius: var(--radius-l);
     box-shadow: 0 2px 5px hsla(var(--primary-h), 40%, 40%, 20%);
   }
+/* Responsive Anpassungen */
+  @media (max-width: 768px) {
+    .grid {
+      grid: auto-flow / repeat(6, 1fr);
+    }
+    .card {
+      grid-column: span 6;
+    }
+    .card-primary {
+      grid-column: span 6;
+    }
+  }
 
 /*
 DEV TOOLS Delete after development 

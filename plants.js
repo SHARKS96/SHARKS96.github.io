@@ -50,7 +50,7 @@ const pflanzen = [
     "standort": "Schattig bis halbschattig",
     "wuchshoehe": "Variiert",
     "rueckschnitt": "Alte Wedel im späten Winter oder zeitigen Frühjahr entfernen.",
-    "bild_pfad": "images/farn.jpg",
+    "bild_pfad": "images/schildfarn.webp",
     "bluetezeit": "Keine (Sporenpflanze)",
     "pflegetipp": "Liebt humosen Boden; herabgefallenes Laub als natürlichen Winterschutz liegen lassen."
   },
@@ -105,7 +105,7 @@ const pflanzen = [
     "standort": "Halbschattig",
     "wuchshoehe": "40 cm",
     "rueckschnitt": "Zurückschneiden nicht nötig.",
-    "bild_pfad": "images/lilientraube.jpg",
+    "bild_pfad": "images/lilientraube.webp",
     "bluetezeit": "August - Oktober",
     "pflegetipp": "Perfekt als immergrüner Bodendecker unter Gehölzen; bevorzugt leicht sauren, humosen Boden."
   }

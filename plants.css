@@ -8,15 +8,19 @@
 .plant-nav {
     flex: 1;
     padding: 20px;
-    border-right: 1px solid #ededed;
     border-radius: var(--radius-m) 0 0 var(--radius-m);
-    background-color: #eaeaea;
+    background: hsla(var(--primary-h), 50%, 90%, 20%);
 }
 
 .plant-list {
     list-style: none;
     padding: 0;
     line-height: 1.5;
+}
+.plant-list li:hover{
+    background-color: var(--bg-body);
+    padding: 5px 20px;
+    border-radius: var(--radius-s);
 }
 
 .plant-details {
