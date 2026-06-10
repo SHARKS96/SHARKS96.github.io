@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ordnernamen-Generator</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a1a1a'/><text x='16' y='22' font-size='18' text-anchor='middle' fill='white' font-family='monospace' font-weight='bold'>P</text></svg>" />
+  <style>
+    :root {
+      --text: #0e0c0c;
+      --background: #fdfcfc;
+      --primary: #e0000f;
+      --secondary: #d39c9f;
+      --accent: #cd7077;
+      --surface: #ffffff;
+      --surface-muted: #faf9f7;
+      --surface-strong: #f0efe9;
+      --border: #e0ded8;
+      --border-strong: #dddbd5;
+      --muted: #888;
+      --muted-strong: #666;
+      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-heading: 'Cartograph CF', var(--font-body);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f3f1f1;
+        --background: #030202;
+        --primary: #ff1f2e;
+        --secondary: #632c2f;
+        --accent: #8f323a;
+        --surface: #0a0909;
+        --surface-muted: #110f0f;
+        --surface-strong: #141313;
+        --border: #252122;
+        --border-strong: #3d3838;
+        --muted: #aaa;
+        --muted-strong: #ccc;
+        --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-heading: 'Cartograph CF', var(--font-body);
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 3rem 1rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 2rem 2rem 2.5rem;
+      width: 100%;
+      max-width: 640px;
+    }
+
+    h1 {
+      font-family: var(--font-heading);
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 13px;
+      padding: 10px 12px;
+      border: 1px dashed var(--border-strong);
+      border-radius: 8px;
+      background: var(--surface-muted);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+      resize: vertical;
+    }
+
+    textarea:focus, input[type="text"]:focus {
+      border-color: var(--secondary);
+      background: var(--surface);
+    }
+
+    textarea { min-height: 80px; }
+
+    .hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    button.primary {
+      margin-top: 1.25rem;
+      padding: 9px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    button.primary:hover { background: var(--accent); }
+    button.primary:active { transform: scale(0.98); }
+
+    .result-section {
+      margin-top: 1.75rem;
+      display: none;
+    }
+
+    .result-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .result-row input {
+      flex: 1;
+      background: var(--surface-strong);
+      color: var(--text);
+      cursor: default;
+      border: 1px solid var(--border-strong);
+    }
+
+    button.copy {
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+      flex-shrink: 0;
+      color: var(--text);
+    }
+
+    button.copy:hover { background: var(--surface-strong); }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.75rem 0;
+    }
+
+    .batch-out {
+      background: var(--surface-strong);
+      color: var(--text);
+      cursor: default;
+      line-height: 1.7;
+      border: 1px solid var(--border-strong);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 20px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Ordnernamen-Generator</h1>
+    <p class="subtitle">Wandelt Projektnamen in einheitliche Ordnernamen um</p>
+
+    <label for="input">Projektname(n)</label>
+    <textarea id="input" placeholder="P2606-0609 Firma ABC Corporate Design&#10;Mehrere Namen? Jeden in eine neue Zeile."></textarea>
+    <p class="hint">Strg + Enter zum Umwandeln · Mehrere Namen zeilenweise eingeben</p>
+
+    <button class="primary" onclick="convert()">Umwandeln</button>
+
+    <div class="result-section" id="result-section">
+      <hr class="divider" />
+
+      <div id="single-result">
+        <label>Ordnername</label>
+        <div class="result-row">
+          <input type="text" id="output" readonly />
+          <button class="copy" id="copy-btn" onclick="copyResult()">Kopieren</button>
+        </div>
+      </div>
+
+      <div id="batch-result" style="display:none; margin-top: 1.25rem;">
+        <label>Alle Ergebnisse <span class="badge" id="count-badge">0 Namen</span></label>
+        <textarea class="batch-out" id="batch-out" readonly rows="6"></textarea>
+        <div style="margin-top: 8px;">
+          <button class="copy" onclick="copyBatch()">Alle kopieren</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toFolderName(raw) {
+      const trimmed = raw.trim();
+      if (!trimmed) return '';
+      let s = trimmed;
+      s = s.replace(/Ä/g, 'Ae').replace(/Ö/g, 'Oe').replace(/Ü/g, 'Ue');
+      s = s.replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
+      s = s.toLowerCase();
+      s = s.replace(/\s*-\s*/g, '-');
+      s = s.replace(/\s+/g, '-');
+      s = s.replace(/-{2,}/g, '-');
+      if (s.length > 0) s = s.charAt(0).toUpperCase() + s.slice(1);
+      return s;
+    }
+
+    function convert() {
+      const raw = document.getElementById('input').value;
+      const lines = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      if (lines.length === 0) return;
+
+      const results = lines.map(toFolderName);
+      document.getElementById('output').value = results[0];
+      document.getElementById('result-section').style.display = 'block';
+
+      const batchEl = document.getElementById('batch-result');
+      if (lines.length > 1) {
+        document.getElementById('batch-out').value = results.join('\n');
+        document.getElementById('count-badge').textContent = results.length + ' Namen';
+        batchEl.style.display = 'block';
+      } else {
+        batchEl.style.display = 'none';
+      }
+    }
+
+    function copyResult() {
+      navigator.clipboard.writeText(document.getElementById('output').value).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = 'Kopiert ✓';
+        setTimeout(() => { btn.textContent = 'Kopieren'; }, 1500);
+      });
+    }
+
+    function copyBatch() {
+      navigator.clipboard.writeText(document.getElementById('batch-out').value);
+    }
+
+    document.getElementById('input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && e.ctrlKey) convert();
+    });
+  </script>
+</body>
+</html>
