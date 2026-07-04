@@ -6,7 +6,7 @@ const pflanzen = [
     "standort": "Sonnig",
     "wuchshoehe": "120 cm",
     "rueckschnitt": "Nach der Blüte im Frühsommer; neue Triebe um 1/3 bis 2/3 kürzen; nicht ins alte Holz schneiden.",
-    "bild_pfad": "images/ginster_allgold.jpg",
+    "bild_pfad": "images/ginster_allgold.webp",
     "bluetezeit": "April - Mai",
     "pflegetipp": "Mag durchlässige, sandige Böden; Staunässe unbedingt vermeiden."
   },
@@ -17,7 +17,7 @@ const pflanzen = [
     "standort": "Sonnig",
     "wuchshoehe": "Variiert",
     "rueckschnitt": "Direkt nach der Blüte im Frühsommer.",
-    "bild_pfad": "images/sommerginster_2.jpg",
+    "bild_pfad": "images/edelginster-lena.webp",
     "bluetezeit": "Mai - Juni",
     "pflegetipp": "Sehr trockenheitstolerant, benötigt in der Regel keinen zusätzlichen Dünger."
   },
@@ -28,7 +28,7 @@ const pflanzen = [
     "standort": "Sonnig bis halbschattig",
     "wuchshoehe": "100 - 150 cm",
     "rueckschnitt": "Nach der Ernte im Herbst; abgetragene Ruten bodennah entfernen.",
-    "bild_pfad": "images/himbeere.jpg",
+    "bild_pfad": "images/himbeere.webp",
     "bluetezeit": "Mai - Juli",
     "pflegetipp": "Flachwurzler: Den Boden um die Pflanze herum mulchen und nicht tief hacken."
   },
@@ -39,7 +39,7 @@ const pflanzen = [
     "standort": "Halbschattig bis schattig",
     "wuchshoehe": "30 - 60 cm",
     "rueckschnitt": "Im Frühjahr vor dem Neuaustrieb nur bei Bedarf ausputzen.",
-    "bild_pfad": "images/segge.jpg",
+    "bild_pfad": "images/segge.webp",
     "bluetezeit": "April - Mai (oft unscheinbar)",
     "pflegetipp": "Im Frühjahr mit etwas Kompost versorgen, verträgt keine extreme Trockenheit."
   },
@@ -61,7 +61,7 @@ const pflanzen = [
     "standort": "Sonnig bis halbschattig",
     "wuchshoehe": "20 - 50 cm",
     "rueckschnitt": "Blütenstiele nach dem Verblühen kappen; Blätter erst entfernen, wenn sie gelb/braun sind.",
-    "bild_pfad": "images/tulpe.jpg",
+    "bild_pfad": "images/tulpe.webp",
     "bluetezeit": "April - Mai",
     "pflegetipp": "Direkt nach der Blüte leicht düngen, damit die Zwiebel Kraft fürs nächste Jahr sammelt."
   },
@@ -72,7 +72,7 @@ const pflanzen = [
     "standort": "Sonnig bis halbschattig",
     "wuchshoehe": "30 - 50 cm",
     "rueckschnitt": "Wie Tulpen: Laub einziehen lassen, um Energie für das nächste Jahr zu speichern.",
-    "bild_pfad": "images/narzisse.jpg",
+    "bild_pfad": "images/narzisse.webp",
     "bluetezeit": "März - Mai",
     "pflegetipp": "Sehr robust; Zwiebeln können über viele Jahre am selben Standort bleiben und verwildern."
   },
@@ -83,7 +83,7 @@ const pflanzen = [
     "standort": "Sonnig",
     "wuchshoehe": "60 - 100 cm",
     "rueckschnitt": "Im späten Herbst bodennah zurückschneiden.",
-    "bild_pfad": "images/pfingstrose.jpg",
+    "bild_pfad": "images/pfingstrose.webp",
     "bluetezeit": "Mai - Juni",
     "pflegetipp": "Nicht zu tief pflanzen, da sie sonst blühfaul wird. Eine Staudenstütze hilft bei schweren Blüten."
   },
@@ -94,7 +94,7 @@ const pflanzen = [
     "standort": "Sonnig",
     "wuchshoehe": "60 cm",
     "rueckschnitt": "Erst im Frühjahr (März) 20 cm über dem Boden zurückschneiden.",
-    "bild_pfad": "images/lampenputzergras.jpg",
+    "bild_pfad": "images/lampenputzergras.webp",
     "bluetezeit": "August - Oktober",
     "pflegetipp": "Im Winter die Halme oben zusammenbinden, um das Herz der Pflanze vor Fäulnis durch Nässe zu schützen."
   },
