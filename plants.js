@@ -108,6 +108,17 @@ const pflanzen = [
     "bild_pfad": "images/lilientraube.webp",
     "bluetezeit": "August - Oktober",
     "pflegetipp": "Perfekt als immergrüner Bodendecker unter Gehölzen; bevorzugt leicht sauren, humosen Boden."
+  },
+  {
+    "id": 11,
+    "name": "Ficus Microcarpa 'Ginseng'",
+    "art": "Bonsai Ficus / Chinesische Feige",
+    "standort": "Heller Standort, verträgt volle Sonne",
+    "wuchshoehe": "Variiert",
+    "rueckschnitt": "Bei Bedarf formen; verträgt kräftigen Rückschnitt gut.",
+    "bild_pfad": "images/ficus-microcarpa-ginseng.jpg",
+    "bluetezeit": "Keine (als Zimmerpflanze selten blühend)",
+    "pflegetipp": "Boden leicht feucht halten und 1x pro Woche Pflanzennahrung ins Wasser geben. Außerhalb der Reichweite von Kindern und Haustieren aufstellen."
   }
 ]
 
