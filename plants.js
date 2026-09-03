@@ -119,6 +119,17 @@ const pflanzen = [
     "bild_pfad": "",
     "bluetezeit": "Keine (als Zimmerpflanze selten blühend)",
     "pflegetipp": "Boden leicht feucht halten und 1x pro Woche Pflanzennahrung ins Wasser geben. Außerhalb der Reichweite von Kindern und Haustieren aufstellen."
+  },
+  {
+    "id": 12,
+    "name": "Ficus Microcarpa",
+    "art": "Vijgenboom / Figuier / Feige",
+    "standort": "Heller Standort, verträgt volle Sonne",
+    "wuchshoehe": "Variiert",
+    "rueckschnitt": "Bei Bedarf formen; verträgt kräftigen Rückschnitt gut.",
+    "bild_pfad": "",
+    "bluetezeit": "Keine (als Zimmerpflanze selten blühend)",
+    "pflegetipp": "Boden leicht feucht halten und 1x pro Woche Pflanzennahrung ins Wasser geben. Außerhalb der Reichweite von Kindern und Haustieren aufstellen."
   }
 ]
 
