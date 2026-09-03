@@ -112,7 +112,7 @@ const pflanzen = [
   {
     "id": 11,
     "name": "Ficus Microcarpa 'Ginseng'",
-    "art": "Bonsai Ficus / Chinesische Feige",
+    "art": "Chinesische Feige",
     "standort": "Heller Standort, verträgt volle Sonne",
     "wuchshoehe": "Variiert",
     "rueckschnitt": "Bei Bedarf formen; verträgt kräftigen Rückschnitt gut.",
@@ -123,7 +123,7 @@ const pflanzen = [
   {
     "id": 12,
     "name": "Ficus Microcarpa",
-    "art": "Vijgenboom / Figuier / Feige",
+    "art": "Feige",
     "standort": "Heller Standort, verträgt volle Sonne",
     "wuchshoehe": "Variiert",
     "rueckschnitt": "Bei Bedarf formen; verträgt kräftigen Rückschnitt gut.",
