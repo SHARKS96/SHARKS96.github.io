@@ -115,8 +115,14 @@
       margin-top: 5px;
     }
 
-    button.primary {
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       margin-top: 1.25rem;
+    }
+
+    button.primary {
       padding: 9px 20px;
       font-size: 13px;
       font-weight: 500;
@@ -130,6 +136,21 @@
 
     button.primary:hover { background: var(--accent); }
     button.primary:active { transform: scale(0.98); }
+
+    button.ghost {
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      background: transparent;
+      color: var(--muted-strong);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, transform 0.15s;
+    }
+
+    button.ghost:hover { background: var(--surface-strong); color: var(--text); }
+    button.ghost:active { transform: scale(0.98); }
 
     .result-section {
       margin-top: 1.75rem;
@@ -200,9 +221,11 @@
     <label for="input">Projektname(n)</label>
     <textarea id="input" placeholder="P2606-0609 Firma ABC Corporate Design&#10;Mehrere Namen? Jeden in eine neue Zeile."></textarea>
     <p class="hint">Strg + Enter zum Umwandeln · Mehrere Namen zeilenweise eingeben</p>
-    <p class="hint">Umlaute werden ersetzt · „&amp;“ wird zu „und“ · Rechtsformen (GmbH, AG, Ltd. …) werden entfernt · Gedankenstriche werden zu „-“ · verbotene Zeichen wie / \ : * ? werden bereinigt</p>
 
-    <button class="primary" onclick="convert()">Umwandeln</button>
+    <div class="actions">
+      <button class="primary" type="button" onclick="convert()">Umwandeln</button>
+      <button class="ghost" type="button" onclick="clearInput()">Leeren</button>
+    </div>
 
     <div class="result-section" id="result-section">
       <hr class="divider" />
@@ -345,6 +368,16 @@
       } else {
         batchEl.style.display = 'none';
       }
+    }
+
+    function clearInput() {
+      const input = document.getElementById('input');
+      input.value = '';
+      document.getElementById('output').value = '';
+      document.getElementById('batch-out').value = '';
+      document.getElementById('batch-result').style.display = 'none';
+      document.getElementById('result-section').style.display = 'none';
+      input.focus();
     }
 
     function copyResult() {
