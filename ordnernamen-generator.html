@@ -200,7 +200,7 @@
     <label for="input">Projektname(n)</label>
     <textarea id="input" placeholder="P2606-0609 Firma ABC Corporate Design&#10;Mehrere Namen? Jeden in eine neue Zeile."></textarea>
     <p class="hint">Strg + Enter zum Umwandeln · Mehrere Namen zeilenweise eingeben</p>
-    <p class="hint">Umlaute werden ersetzt · „&amp;“ wird zu „und“ · Rechtsformen (GmbH, AG, Ltd. …) werden entfernt · Gedankenstriche werden zu „-“</p>
+    <p class="hint">Umlaute werden ersetzt · „&amp;“ wird zu „und“ · Rechtsformen (GmbH, AG, Ltd. …) werden entfernt · Gedankenstriche werden zu „-“ · verbotene Zeichen wie / \ : * ? werden bereinigt</p>
 
     <button class="primary" onclick="convert()">Umwandeln</button>
 
@@ -299,25 +299,30 @@
       s = s.replace(/\u00ad/g, '');
       s = s.replace(/[\u2010-\u2015\u2043\u2212\ufe58\ufe63\uff0d]/g, '-');
 
-      // 2) Rechtsformen entfernen (vor der &-Ersetzung, damit
+      // 2) In Ordner-/Dateinamen verbotene Zeichen (Windows + macOS):
+      //    Trenner-artige werden zu "-", der Rest fliegt raus.
+      s = s.replace(/[\/\\|:]/g, '-');
+      s = s.replace(/[*?<>"\u0000-\u001f]/g, '');
+
+      // 3) Rechtsformen entfernen (vor der &-Ersetzung, damit
       //    "GmbH & Co. KG" komplett verschwindet). Bleibt dabei nichts
       //    uebrig, lieber den Originalnamen behalten.
       const gekuerzt = rechtsformenEntfernen(s);
       if (/[a-z0-9\u00e4\u00f6\u00fc\u00df]/i.test(gekuerzt)) s = gekuerzt;
 
-      // 3) "&" zu "und"
+      // 4) "&" zu "und"
       s = s.replace(/\s*&\s*/g, ' und ');
 
-      // 4) Umlaute und ss
+      // 5) Umlaute und ss
       s = s.replace(/Ä/g, 'Ae').replace(/Ö/g, 'Oe').replace(/Ü/g, 'Ue');
       s = s.replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
       s = s.toLowerCase();
 
-      // 5) Trenner normalisieren - nie zwei Striche hintereinander
+      // 6) Trenner normalisieren - nie zwei Striche hintereinander
       s = s.replace(/\s*-\s*/g, '-');
       s = s.replace(/\s+/g, '-');
       s = s.replace(/-{2,}/g, '-');
-      s = s.replace(/^-+|-+$/g, '');
+      s = s.replace(/^[-.]+|[-.]+$/g, '');
 
       if (s.length > 0) s = s.charAt(0).toUpperCase() + s.slice(1);
       return s;
