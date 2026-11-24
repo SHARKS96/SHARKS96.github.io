@@ -200,6 +200,7 @@
     <label for="input">Projektname(n)</label>
     <textarea id="input" placeholder="P2606-0609 Firma ABC Corporate Design&#10;Mehrere Namen? Jeden in eine neue Zeile."></textarea>
     <p class="hint">Strg + Enter zum Umwandeln · Mehrere Namen zeilenweise eingeben</p>
+    <p class="hint">Umlaute werden ersetzt · „&amp;“ wird zu „und“ · Rechtsformen (GmbH, AG, Ltd. …) werden entfernt · Gedankenstriche werden zu „-“</p>
 
     <button class="primary" onclick="convert()">Umwandeln</button>
 
@@ -225,16 +226,99 @@
   </div>
 
   <script>
+    // ---------------------------------------------------------------
+    // Rechtsformen
+    // ---------------------------------------------------------------
+    // Lang und eindeutig -> Schreibweise ist egal (GmbH, gmbh, GMBH ...)
+    const RECHTSFORMEN_EGAL = [
+      'Aktiengesellschaft', 'PartGmbB', 'gGmbH', 'GesmbH', 'GmbH', 'PartG',
+      'EWIV', 'KGaA', 'mbH', 'mbB', 'gUG', 'OHG', 'GbR', 'UG',
+      'Incorporated', 'Corporation', 'Limited', 'S.A.R.L.', 'S.R.L.',
+      'SARL', 'SASU', 'SPRL', 'BVBA', 'Corp', 'Inc', 'LLC', 'LLP', 'PLC',
+      'Ltd', 'ApS', 'ASA', 'Oyj', 'SRL', 'Kft', 'Pty', 'Pte', 'Sdn', 'Bhd'
+    ];
+    // Kurz und mehrdeutig -> nur in genau dieser Schreibweise
+    const RECHTSFORMEN_EXAKT = [
+      'e.Kfm.', 'e.Kfr.', 'S.p.A.', 'e.K.', 'e.V.', 'S.A.', 'N.V.', 'B.V.',
+      'S.L.', 'A/S', 'SpA', 'SAS', 'Cie.', 'Co.',
+      'eG', 'eK', 'eV', 'AG', 'SE', 'KG', 'SA', 'NV', 'BV', 'SL', 'AB',
+      'AS', 'Oy'
+    ];
+
+    // Davor erlaubt: Zeilenanfang, Leerzeichen, Bindestrich, Klammer, Slash
+    const RF_VOR = '(^|[\\s\\-(\\/])';
+    // Danach erlaubt: Zeilenende oder Trenner. Bei den langen Formen zaehlt
+    // auch ein Bindestrich als Trenner ("Firma GmbH-Projekt"), bei den kurzen
+    // nicht - sonst wuerde aus "AS-Bau" ploetzlich "Bau".
+    const RF_NACH_LANG = '(?=$|[\\s\\-.,;:)\\/])';
+    const RF_NACH_KURZ = '(?=$|[\\s.,;:)\\/])';
+
+    function reEscape(str) {
+      return str.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&');
+    }
+
+    function rechtsformRegex(form, nach, flags) {
+      // optionaler Schlusspunkt, falls die Form selbst keinen hat ("Ltd.")
+      const kern = reEscape(form) + (form.slice(-1) === '.' ? '' : '\\.?');
+      return new RegExp(RF_VOR + kern + nach, flags);
+    }
+
+    const RECHTSFORM_REGEXE = [
+      // "GmbH & Co. KG", "AG & Co. KGaA", "Ltd. & Co. OHG", "& Co." als Ganzes,
+      // damit kein einzelnes "&" uebrig bleibt und zu "und" wird.
+      new RegExp(
+        RF_VOR +
+        '(?:(?:g?GmbH|mbH|AG|SE|UG|KG|Ltd\\.?|Limited)\\s*)?' +
+        '(?:&|\\+|\\bund\\b)\\s*' +
+        '(?:' +
+          '(?:Compagnie|Cie|Co)\\.(?:\\s*(?:KGaA|KG|OHG|oHG))?' +
+          '|(?:Compagnie|Cie|Co)\\s*(?:KGaA|KG|OHG|oHG)' +
+          '|(?:Compagnie|Cie|Co)(?=\\s*$)' +
+        ')' + RF_NACH_LANG, 'gi')
+    ]
+      .concat(RECHTSFORMEN_EGAL.map(f => rechtsformRegex(f, RF_NACH_LANG, 'gi')))
+      .concat(RECHTSFORMEN_EXAKT.map(f => rechtsformRegex(f, RF_NACH_KURZ, 'g')));
+
+    function rechtsformenEntfernen(s) {
+      // "UG (haftungsbeschraenkt)" -> Klammerzusatz zuerst weg
+      s = s.replace(/\(\s*haftungsbeschr(?:\u00e4|ae|a)nkt\s*\)/gi, ' ');
+      for (let i = 0; i < RECHTSFORM_REGEXE.length; i++) {
+        s = s.replace(RECHTSFORM_REGEXE[i], '$1 ');
+      }
+      s = s.replace(/\(\s*\)/g, ' ');                   // leere Klammern
+      s = s.replace(/\s*[,;](?=\s*(?:$|[-,;]))/g, '');  // Komma ins Leere
+      return s;
+    }
+
     function toFolderName(raw) {
-      const trimmed = raw.trim();
-      if (!trimmed) return '';
-      let s = trimmed;
+      let s = String(raw).trim();
+      if (!s) return '';
+
+      // 1) Alle Strich-Varianten (Gedankenstrich, Geviertstrich, Minus, ...)
+      //    zu einem normalen Bindestrich; weiche Trennstriche fliegen raus.
+      s = s.replace(/\u00ad/g, '');
+      s = s.replace(/[\u2010-\u2015\u2043\u2212\ufe58\ufe63\uff0d]/g, '-');
+
+      // 2) Rechtsformen entfernen (vor der &-Ersetzung, damit
+      //    "GmbH & Co. KG" komplett verschwindet). Bleibt dabei nichts
+      //    uebrig, lieber den Originalnamen behalten.
+      const gekuerzt = rechtsformenEntfernen(s);
+      if (/[a-z0-9\u00e4\u00f6\u00fc\u00df]/i.test(gekuerzt)) s = gekuerzt;
+
+      // 3) "&" zu "und"
+      s = s.replace(/\s*&\s*/g, ' und ');
+
+      // 4) Umlaute und ss
       s = s.replace(/Ä/g, 'Ae').replace(/Ö/g, 'Oe').replace(/Ü/g, 'Ue');
       s = s.replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
       s = s.toLowerCase();
+
+      // 5) Trenner normalisieren - nie zwei Striche hintereinander
       s = s.replace(/\s*-\s*/g, '-');
       s = s.replace(/\s+/g, '-');
       s = s.replace(/-{2,}/g, '-');
+      s = s.replace(/^-+|-+$/g, '');
+
       if (s.length > 0) s = s.charAt(0).toUpperCase() + s.slice(1);
       return s;
     }
